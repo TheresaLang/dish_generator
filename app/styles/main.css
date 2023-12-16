@@ -1,0 +1,46 @@
+body {
+    margin: 0
+}
+
+.logo {
+    width: 50pt;
+    margin: 5pt
+}
+
+.header {
+    background-color: #213c4b
+}
+
+.intro {
+    background-color: #a9c5d2;
+    padding: 60px 45px;
+    display: flex;
+    justify-content: center;
+}
+
+.intro-inner {
+    max-width: 600px;
+}
+
+.main-features {
+    background-color: #e8eff3;
+    padding: 20px 45px;
+}
+
+.main-features-inner {
+    max-width: 750px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-column-gap: 45px;
+}
+
+.dish-suggestion {
+    padding: 20px 20px
+}
+
+.remembered-dishes {
+    padding: 20px 20px;
+    background-color: white;
+}
+
