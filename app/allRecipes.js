@@ -9,7 +9,8 @@ function getAllRecipes() {
         "Petersilien-Zitronen-Spaghetti",
         "Linseneintopf",
         "Semmelknödel mit Pilz-Rahm-Soße",
-        "Sommerrollen"
+        "Sommerrollen",
+        "Dhal"
     ]
 }
 
