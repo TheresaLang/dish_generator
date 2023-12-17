@@ -1,5 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+
 body {
-    margin: 0
+    margin: 0;
+    font-family: 'Manrope'
+}
+
+h1 {
+    margin: 7px 10x;
+    font-weight: 800;
+}
+
+h2 {
+    font-size: 17pt
+}
+
+button {
+    margin-right: 7px;
+    padding: 10px;
+    font-family: 'Manrope';
+    background-color: #213c4b;
+    color: #e8eff3;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer
+}
+
+button:hover {
+    color: white;
 }
 
 .logo {
@@ -42,5 +69,60 @@ body {
 .remembered-dishes {
     padding: 20px 20px;
     background-color: white;
+    border-radius: 6px;
 }
+
+.result {
+    min-height: 100px;
+}
+
+.current-recipe-container {
+    min-height: 60px;
+    font-size: medium;
+    border-style: solid;
+    border-width: 1.5px;
+    border-radius: 6px;
+    text-align: center;
+    border-color: #213c4b;
+}
+
+div.dish-list {
+    min-height: 100px;
+    font-size: medium;
+}
+
+ul.dish-list {
+    list-style-type: none;
+    padding: 0
+}
+
+.buttons {
+    display: flex;
+}
+
+@keyframes showSnapshot {
+    0% {
+      color: white;
+      border-color: white;
+    }
+  }
+  
+.animate-snapshot {
+animation: 1s showSnapshot;
+}
+
+@keyframes showZoom {
+    50% {
+      transform: scale(1.1);
+    }
+  }
+  
+.animate-zoom {
+animation: .3s showZoom;
+}
+
+
+
+
+
 

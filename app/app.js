@@ -1,28 +1,17 @@
 import React, {useState, useEffect, useRef} from "react"
 import { createRoot } from 'react-dom/client'
 import "./styles/main.css"
-import logo from './images/logo_small.jpg'
-
+import Header from "./components/header"
+import Intro from "./components/intro"
+import getAllRecipes from "./allRecipes"
 
 function App() {
     const [allRecipes, setAllRecipes] = useState(getAllRecipes())
-    const [currentRecipe, setCurrentRecipe] = useState("")
+    const [currentRecipe, setCurrentRecipe] = useState(" ")
     const [rememberedRecipes, setRememberedRecipes] = useState([])
-
-    function getAllRecipes() {
-        return [
-            "Risotto",
-            "Lasagne",
-            "Ofengemüse",
-            "Penne Arrabiata",
-            "Belugalinsensalat",
-            "Tofu-Geschnetzeltes",
-            "Petersilien-Zitronen-Spaghetti",
-            "Linseneintopf",
-            "Semmelknödel mit Pilz-Rahm-Soße",
-            "Sommerrollen"
-        ]
-    }
+    const [showSnapshot, setShowSnapshot] = useState(false)
+    const [showZoom, setShowZoom] = useState(false)
+    const [showCopy, setShowCopy] = useState(false)
 
     function generateRandomNumber(max) {
         return Math.floor(Math.random() * max)
@@ -35,70 +24,83 @@ function App() {
 
     function handleClickGenerator() {
         setCurrentRecipe(getRandomRecipe())
-        console.log(currentRecipe)
+        setShowZoom(true)
+        setTimeout(() => setShowZoom(false), 301)
     }
 
     function handleClickRemember() {
-        setRememberedRecipes([
-            ...rememberedRecipes,
-            currentRecipe
-        ])
+        if (!rememberedRecipes.includes(currentRecipe)) {
+            setRememberedRecipes([
+                ...rememberedRecipes,
+                currentRecipe
+            ])
+            setShowSnapshot(true)
+            setTimeout(() => setShowSnapshot(false), 1001)
+        }
     }
 
     function handleClickDelete() {
         setRememberedRecipes([])
     }
 
+    function handleClickCopy() {
+        navigator.clipboard.writeText(rememberedRecipes.join("\n"))
+        setShowCopy(true)
+        setTimeout(() => setShowCopy(false), 1001)
+    }
+
+    () => {navigator.clipboard.writeText(this.state.textToCopy)}
+
     return (
         <>
-        <div className="header">
-            <div>
-                <img src={logo} alt="Logo" className="logo"/>
-            </div>
-            
-        </div>
-        <div className="intro">
-            <div className="intro-inner">
-                <div className="heading">
-                    <h1>T&T's Dish Generator</h1>
-                </div>
-                <div className="explanation">
-                    <p>Keine Ahnung was wir nächste Woche kochen könnten? Dann lass den Dish Generator aus T&T's Lieblingsrezepten auswählen.</p>
-                </div>
-            </div>
-        </div>
-        
+        <Header />
+
+        <Intro />
+
         <div className="main-features">
             <div className="main-features-inner">
                 <div className="dish-suggestion">
                     <h2>Gerichtvorschläge</h2>
                     <div className="result">
-                        <p className="current-recipe">{currentRecipe}</p>
+                        <div className="current-recipe-container">
+                            <p className={"current-recipe" + (showSnapshot ? " animate-snapshot" : "") + (showZoom ? " animate-zoom" : "")}>{currentRecipe}</p>
+                        </div>
+                        
                     </div>
-                    <div className="generator-button">
-                        <button className="generator" onClick={handleClickGenerator}>
-                            Neuer Vorschlag
-                        </button>
-                    </div>
-                    <div className="add-button">
-                        <button className="add" onClick={handleClickRemember}>
-                            Gericht merken
-                        </button>
+                    <div className="buttons">
+                        <div className="generator-button">
+                            <button className="generate" onClick={handleClickGenerator}>
+                                Neuer Vorschlag
+                            </button>
+                        </div>
+                        <div className="add-button">
+                            <button className="add" onClick={handleClickRemember}>
+                                Gericht merken
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div className="remembered-dishes">
                     <h2>Gemerkte Gerichte</h2>
-                    <div className="dish-list">
+                    <div className={"dish-list" + (showCopy ? " animate-snapshot" : "")}>
                         <ul className="dish-list">
                             {rememberedRecipes.map(rememberedRecipe => (
                                 <li>{rememberedRecipe}</li>
                             ))}
                         </ul>
                     </div>
+                    <div className="buttons">
                     <div className="delete-button">
                         <button className="delete" onClick={handleClickDelete}>
                             Liste löschen
                         </button>
+                    </div>
+                    <div className="copy-button">
+                        <button className="copy" onClick={handleClickCopy}>
+                            Liste kopieren
+                        </button>
+                    </div>
+
                     </div>
 
                 </div>
