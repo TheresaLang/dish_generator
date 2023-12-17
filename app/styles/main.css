@@ -86,6 +86,10 @@ button:hover {
     border-color: #213c4b;
 }
 
+.current-recipe {
+    margin: 16px
+}
+
 div.dish-list {
     min-height: 100px;
     font-size: medium;
