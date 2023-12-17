@@ -8,7 +8,7 @@ const {WebpackManifestPlugin} = require("webpack-manifest-plugin")
 const config = {
     entry: './app/app.js',
     output: {
-        filename: 'main.[hash].js', //hash: for cashe-busting (random numbering)
+        filename: 'main.js', //include [hash]: for cashe-busting (random numbering)
         path: path.resolve(__dirname, 'dist')
     },
     // watch: true,
@@ -29,6 +29,18 @@ const config = {
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
                 type: 'asset/resource',
+            },
+            {
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                use: [
+                  {
+                    loader: 'file-loader',
+                    options: {
+                      name: '[name].[ext]',
+                      outputPath: 'fonts/'
+                    }
+                  }
+                ]
             },
             {
                 test: /\.js$/,
@@ -53,7 +65,7 @@ const config = {
 if (currentTask == "build") {
     config.mode = "production"
     config.module.rules[0].use[0] = MiniCssExtractPlugin.loader // use that instead of "style-loader"
-    config.plugins.push(new MiniCssExtractPlugin({filename: "main.[hash].css"}), new CleanWebpackPlugin(), new WebpackManifestPlugin()) // creates json-file that includes (random) names of files
+    config.plugins.push(new MiniCssExtractPlugin({filename: "main.css"}), new CleanWebpackPlugin(), new WebpackManifestPlugin()) // creates json-file that includes (random) names of files
 }
 
 module.exports = config
